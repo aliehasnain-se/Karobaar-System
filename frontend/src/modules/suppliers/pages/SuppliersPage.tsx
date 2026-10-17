@@ -37,7 +37,7 @@ export function SuppliersPage() {
         <div><span>Total suppliers</span><strong>{suppliers.length}</strong></div>
         <div><span>Total purchases</span><strong>{money(totalPurchases)}</strong></div>
         <div><span>Amount paid</span><strong>{money(totalPaid)}</strong></div>
-        <div><span>Total payable</span><strong>{money(totalPurchases - totalPaid)}</strong></div>
+        <div><span>Total supplier balance</span><strong>{money(totalPurchases - totalPaid)}</strong></div>
       </section>
 
       <section className="panel inventory-panel">
@@ -51,7 +51,7 @@ export function SuppliersPage() {
         <div className="inventory-table-wrap">
           <p className="mobile-scroll-hint" aria-hidden="true">Swipe left to see more columns →</p>
           <table>
-            <thead><tr><th>Supplier</th><th>Contact</th><th>City</th><th>Total purchases</th><th>Paid</th><th>Payable</th><th>Last purchase</th><th aria-label="Open" /></tr></thead>
+            <thead><tr><th>Supplier</th><th>Contact</th><th>City</th><th>Total purchases</th><th>Paid</th><th>Balance</th><th>Last purchase</th><th aria-label="Open" /></tr></thead>
             <tbody>
               {filteredSuppliers.map((supplier) => {
                 const balance = supplier.purchases - supplier.paid

@@ -6,12 +6,13 @@ import { NewPurchasePage } from '../modules/purchases/pages/NewPurchasePage'
 import { PurchasesPage } from '../modules/purchases/pages/PurchasesPage'
 import { SupplierDetailPage } from '../modules/suppliers/pages/SupplierDetailPage'
 import { SuppliersPage } from '../modules/suppliers/pages/SuppliersPage'
+import { CustomerDetailPage } from '../modules/customers/pages/CustomerDetailPage'
+import { CustomersPage } from '../modules/customers/pages/CustomersPage'
 import { ModulePlaceholder } from '../shared/components/ModulePlaceholder'
 import { AppShell } from '../shared/layout/AppShell'
 
 const modules = [
-  ['sales', 'Sales', 'Barcode scan, complete thaan sale aur cash/udhaar invoice yahan banega.'],
-  ['customers', 'Customers', 'Customer profiles, payment receipts aur udhaar ledger yahan milega.'],
+  ['sales', 'Sales', 'Barcode scan, complete thaan sale aur payment invoice yahan banega.'],
   ['transfers', 'Stock Transfers', 'Branch transfer request, approval, transit aur receiving workflow.'],
   ['returns', 'Returns', 'Online invoice search, return approval aur exchange adjustment.'],
   ['expenses', 'Cash & Expenses', 'Branch cash movement, supplier payments aur daily expenses.'],
@@ -29,6 +30,8 @@ export function App() {
         <Route path="purchases/new" element={<NewPurchasePage />} />
         <Route path="suppliers" element={<SuppliersPage />} />
         <Route path="suppliers/:supplierId" element={<SupplierDetailPage />} />
+        <Route path="customers" element={<CustomersPage />} />
+        <Route path="customers/:customerId" element={<CustomerDetailPage />} />
         {modules.map(([path, title, description]) => (
           <Route
             key={path}

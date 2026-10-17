@@ -29,7 +29,7 @@ export function SupplierDetailPage() {
           <div><h2>{supplier.name}</h2><p>{supplier.contactPerson}</p></div>
           <dl><div><dt><Phone size={15} /> Phone</dt><dd>{supplier.phone}</dd></div><div><dt><Building2 size={15} /> City</dt><dd>{supplier.city}</dd></div></dl>
         </article>
-        <article className="panel supplier-balance-card"><span>Current payable</span><strong>{money(balance)}</strong><small>{extraPayment > 0 ? `${money(extraPayment)} demo payment recorded` : 'Amount we need to pay'}</small></article>
+        <article className="panel supplier-balance-card"><span>Current balance</span><strong>{money(balance)}</strong><small>{extraPayment > 0 ? `${money(extraPayment)} demo payment recorded` : 'Remaining amount to pay'}</small></article>
         <article className="panel supplier-balance-card"><span>Total purchases</span><strong>{money(supplier.purchases)}</strong><small>Across all branches</small></article>
         <article className="panel supplier-balance-card"><span>Total paid</span><strong>{money(supplier.paid + extraPayment)}</strong><small>Cash payments recorded</small></article>
       </section>
@@ -41,8 +41,8 @@ export function SupplierDetailPage() {
           <table>
             <thead><tr><th>Date</th><th>Reference</th><th>Description</th><th>Type</th><th>Purchase</th><th>Payment / Return</th><th>Running balance</th></tr></thead>
             <tbody>
-              {extraPayment > 0 && <tr><td>17 Oct 2026</td><td><strong>PAY-DEMO</strong></td><td>Cash payment · Demo entry</td><td><span className="ledger-type">Payment</span></td><td>—</td><td>{money(extraPayment)}</td><td><strong>{money(balance)}</strong></td></tr>}
-              {supplierLedger.map((entry) => <tr key={entry.id}><td>{entry.date}</td><td><strong>{entry.reference}</strong></td><td>{entry.description}</td><td><span className="ledger-type">{entry.type}</span></td><td>{entry.debit ? money(entry.debit) : '—'}</td><td>{entry.credit ? money(entry.credit) : '—'}</td><td><strong>{money(entry.balance)}</strong></td></tr>)}
+              {extraPayment > 0 && <tr><td>17 Oct 2026</td><td><strong>PAY-DEMO</strong></td><td>Cash payment · Demo entry</td><td>Payment</td><td>—</td><td>{money(extraPayment)}</td><td><strong>{money(balance)}</strong></td></tr>}
+              {supplierLedger.map((entry) => <tr key={entry.id}><td>{entry.date}</td><td><strong>{entry.reference}</strong></td><td>{entry.description}</td><td>{entry.type}</td><td>{entry.debit ? money(entry.debit) : '—'}</td><td>{entry.credit ? money(entry.credit) : '—'}</td><td><strong>{money(entry.balance)}</strong></td></tr>)}
             </tbody>
           </table>
         </div>

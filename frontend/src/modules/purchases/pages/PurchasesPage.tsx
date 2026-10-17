@@ -34,7 +34,7 @@ export function PurchasesPage() {
       <section className="inventory-summary" aria-label="Purchase summary">
         <div><span>This month</span><strong>{money(totalPurchases)}</strong></div>
         <div><span>Amount paid</span><strong>{money(totalPaid)}</strong></div>
-        <div><span>Supplier payable</span><strong>{money(totalPurchases - totalPaid)}</strong></div>
+        <div><span>Supplier balance</span><strong>{money(totalPurchases - totalPaid)}</strong></div>
         <div><span>Rolls received</span><strong>{purchases.reduce((sum, purchase) => sum + purchase.rolls, 0)}</strong></div>
       </section>
 

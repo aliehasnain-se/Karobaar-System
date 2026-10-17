@@ -89,16 +89,16 @@ export function NewPurchasePage() {
 
       <section className="purchase-bottom-grid">
         <div className="panel form-section">
-          <div className="section-heading"><h2>Payment</h2><p>Cash paid aur supplier udhaar record karein.</p></div>
+          <div className="section-heading"><h2>Payment</h2><p>Cash paid aur remaining amount record karein.</p></div>
           <div className="payment-options">
-            {['Paid', 'Partial', 'Unpaid'].map((option) => <label key={option} className={paymentType === option ? 'payment-option active' : 'payment-option'}><input type="radio" name="paymentType" value={option} checked={paymentType === option} onChange={() => setPaymentType(option)} /><span><strong>{option}</strong><small>{option === 'Paid' ? 'Full payment done' : option === 'Partial' ? 'Some amount paid' : 'Complete udhaar'}</small></span></label>)}
+            {['Paid', 'Partial', 'Unpaid'].map((option) => <label key={option} className={paymentType === option ? 'payment-option active' : 'payment-option'}><input type="radio" name="paymentType" value={option} checked={paymentType === option} onChange={() => setPaymentType(option)} /><span><strong>{option}</strong><small>{option === 'Paid' ? 'Full payment done' : option === 'Partial' ? 'Some amount paid' : 'No payment made'}</small></span></label>)}
           </div>
           {paymentType === 'Partial' && <label className="form-field paid-input">Amount paid<input type="number" min="0" max={subtotal} value={paidAmount || ''} onChange={(event) => setPaidAmount(Number(event.target.value))} placeholder="0" /></label>}
         </div>
 
         <aside className="panel purchase-summary-card">
           <h2>Purchase summary</h2>
-          <dl><div><dt>Total rolls</dt><dd>{items.length}</dd></div><div><dt>Total meters</dt><dd>{totalMeters.toFixed(2)} m</dd></div><div><dt>Purchase total</dt><dd>{money(subtotal)}</dd></div><div><dt>Cash paid</dt><dd>{money(effectivePaid)}</dd></div><div className="summary-balance"><dt>Supplier payable</dt><dd>{money(balance)}</dd></div></dl>
+          <dl><div><dt>Total rolls</dt><dd>{items.length}</dd></div><div><dt>Total meters</dt><dd>{totalMeters.toFixed(2)} m</dd></div><div><dt>Purchase total</dt><dd>{money(subtotal)}</dd></div><div><dt>Cash paid</dt><dd>{money(effectivePaid)}</dd></div><div className="summary-balance"><dt>Remaining amount</dt><dd>{money(balance)}</dd></div></dl>
         </aside>
       </section>
     </form>

@@ -11,14 +11,14 @@ import { Link } from 'react-router-dom'
 const stats = [
   { label: "Today's sales", value: 'Rs. 684,500', note: '12 invoices' },
   { label: 'Available stock', value: '18,420 m', note: '284 rolls' },
-  { label: 'Customer udhaar', value: 'Rs. 1,240,000', note: '38 customers' },
-  { label: 'Supplier payable', value: 'Rs. 870,000', note: '11 suppliers' },
+  { label: 'Customer balance', value: 'Rs. 1,240,000', note: '38 customers' },
+  { label: 'Supplier balance', value: 'Rs. 870,000', note: '11 suppliers' },
 ]
 
 const recentSales = [
   { invoice: 'LHR-0128', customer: 'Madina Fabrics', quantity: '4 rolls · 312 m', total: 'Rs. 187,200', status: 'Partial' },
   { invoice: 'LHR-0127', customer: 'Al-Rehman Cloth', quantity: '2 rolls · 144 m', total: 'Rs. 82,800', status: 'Paid' },
-  { invoice: 'LHR-0126', customer: 'Usman Traders', quantity: '6 rolls · 465 m', total: 'Rs. 269,700', status: 'Udhaar' },
+  { invoice: 'LHR-0126', customer: 'Usman Traders', quantity: '6 rolls · 465 m', total: 'Rs. 269,700', status: 'Unpaid' },
   { invoice: 'LHR-0125', customer: 'New City Garments', quantity: '1 roll · 78 m', total: 'Rs. 46,800', status: 'Paid' },
 ]
 
@@ -101,7 +101,7 @@ export function DashboardPage() {
           <Link to="/reports" className="text-link">Open reports <ArrowRight size={15} /></Link>
         </div>
         <div className="branch-table">
-          <div className="branch-table-row branch-table-head"><span>Branch</span><span>Sales</span><span>Stock</span><span>Receivable</span></div>
+          <div className="branch-table-row branch-table-head"><span>Branch</span><span>Sales</span><span>Stock</span><span>Customer balance</span></div>
           <div className="branch-table-row"><strong>Lahore Main</strong><span>Rs. 4.8M</span><span>7,840 m</span><span>Rs. 520K</span></div>
           <div className="branch-table-row"><strong>Faisalabad</strong><span>Rs. 3.4M</span><span>6,130 m</span><span>Rs. 410K</span></div>
           <div className="branch-table-row"><strong>Rawalpindi</strong><span>Rs. 2.6M</span><span>4,450 m</span><span>Rs. 310K</span></div>

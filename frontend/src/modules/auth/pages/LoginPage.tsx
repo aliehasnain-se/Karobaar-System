@@ -20,7 +20,7 @@ export function LoginPage() {
         <div className="story-copy">
           <p className="eyebrow eyebrow--light">Wholesale fabric management</p>
           <h1>Stock aur accounts, ek jagah.</h1>
-          <p>Branches, fabric rolls, sales aur udhaar ka simple record.</p>
+          <p>Branches, fabric rolls, sales aur customer balances ka simple record.</p>
         </div>
         <div className="story-stat">
           <span>01</span>
