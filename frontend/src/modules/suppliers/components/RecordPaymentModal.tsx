@@ -1,0 +1,35 @@
+import { FormEvent, useState } from 'react'
+import { X } from 'lucide-react'
+
+type RecordPaymentModalProps = {
+  supplierName: string
+  balance: number
+  onClose: () => void
+  onSave: (amount: number) => void
+}
+
+export function RecordPaymentModal({ supplierName, balance, onClose, onSave }: RecordPaymentModalProps) {
+  const [amount, setAmount] = useState(0)
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    onSave(amount)
+  }
+
+  return (
+    <div className="modal-backdrop" role="presentation" onMouseDown={onClose}>
+      <section className="modal-card modal-card--small" role="dialog" aria-modal="true" aria-labelledby="payment-title" onMouseDown={(event) => event.stopPropagation()}>
+        <div className="modal-header"><div><h2 id="payment-title">Record payment</h2><p>{supplierName} · Payable Rs. {balance.toLocaleString()}</p></div><button className="icon-button" type="button" aria-label="Close" onClick={onClose}><X size={20} /></button></div>
+        <form onSubmit={handleSubmit}>
+          <div className="form-grid">
+            <label className="form-field form-field--wide">Cash amount<input type="number" min="1" max={balance} value={amount || ''} onChange={(event) => setAmount(Number(event.target.value))} placeholder="0" required /></label>
+            <label className="form-field form-field--wide">Payment date<input type="date" defaultValue="2026-10-17" required /></label>
+            <label className="form-field form-field--wide">Note <span className="optional-label">Optional</span><input placeholder="Payment reference or note" /></label>
+          </div>
+          <div className="modal-actions"><button type="button" className="button button--secondary" onClick={onClose}>Cancel</button><button type="submit" className="button button--primary">Save payment</button></div>
+        </form>
+      </section>
+    </div>
+  )
+}
+
