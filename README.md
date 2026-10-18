@@ -1,6 +1,6 @@
 # Karobaar System
 
-Multi-branch wholesale fabric inventory, sales, and ledger management system.
+Wholesale fabric inventory, sales, and ledger management system for a single shop.
 
 ## Planned stack
 

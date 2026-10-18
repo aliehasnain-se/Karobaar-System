@@ -10,7 +10,7 @@ export const initialSuppliers: Supplier[] = [
 
 export const supplierLedger: SupplierLedgerEntry[] = [
   { id: 1, date: '17 Oct 2026', reference: 'PUR-0108', description: 'Purchase · 8 rolls, 628 meters', debit: 376800, credit: 0, balance: 450000, type: 'Purchase' },
-  { id: 2, date: '12 Oct 2026', reference: 'PAY-0042', description: 'Cash payment · Lahore Main', debit: 0, credit: 200000, balance: 73200, type: 'Payment' },
+  { id: 2, date: '12 Oct 2026', reference: 'PAY-0042', description: 'Cash payment', debit: 0, credit: 200000, balance: 73200, type: 'Payment' },
   { id: 3, date: '09 Oct 2026', reference: 'PUR-0099', description: 'Purchase · 6 rolls, 472 meters', debit: 283200, credit: 0, balance: 273200, type: 'Purchase' },
   { id: 4, date: '04 Oct 2026', reference: 'RET-0011', description: 'Purchase return · damaged roll', debit: 0, credit: 10000, balance: -10000, type: 'Return' },
 ]

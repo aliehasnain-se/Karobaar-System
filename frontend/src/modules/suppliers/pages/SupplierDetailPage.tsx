@@ -30,7 +30,7 @@ export function SupplierDetailPage() {
           <dl><div><dt><Phone size={15} /> Phone</dt><dd>{supplier.phone}</dd></div><div><dt><Building2 size={15} /> City</dt><dd>{supplier.city}</dd></div></dl>
         </article>
         <article className="panel supplier-balance-card"><span>Current balance</span><strong>{money(balance)}</strong><small>{extraPayment > 0 ? `${money(extraPayment)} demo payment recorded` : 'Remaining amount to pay'}</small></article>
-        <article className="panel supplier-balance-card"><span>Total purchases</span><strong>{money(supplier.purchases)}</strong><small>Across all branches</small></article>
+        <article className="panel supplier-balance-card"><span>Total purchases</span><strong>{money(supplier.purchases)}</strong><small>All recorded purchases</small></article>
         <article className="panel supplier-balance-card"><span>Total paid</span><strong>{money(supplier.paid + extraPayment)}</strong><small>Cash payments recorded</small></article>
       </section>
 

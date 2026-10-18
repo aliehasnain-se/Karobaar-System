@@ -53,10 +53,9 @@ export function NewPurchasePage() {
       {saved && <div className="form-notice" role="status"><strong>Demo purchase ready.</strong> Backend connect hone ke baad yahan se stock aur supplier ledger update hoga.</div>}
 
       <section className="panel form-section">
-        <div className="section-heading"><h2>Purchase details</h2><p>Invoice kis supplier aur branch ke liye hai.</p></div>
+        <div className="section-heading"><h2>Purchase details</h2><p>Supplier invoice ki basic details enter karein.</p></div>
         <div className="purchase-details-grid">
           <label className="form-field">Supplier<select required defaultValue=""><option value="" disabled>Select supplier</option><option>Noor Fabrics</option><option>Classic Textiles</option><option>Punjab Mills</option><option>Pak Loom</option></select></label>
-          <label className="form-field">Receiving branch<select defaultValue="Lahore Main"><option>Lahore Main</option><option>Faisalabad</option><option>Rawalpindi</option></select></label>
           <label className="form-field">Supplier invoice no.<input placeholder="e.g. NF-8841" required /></label>
           <label className="form-field">Purchase date<input type="date" defaultValue="2026-10-17" required /></label>
         </div>

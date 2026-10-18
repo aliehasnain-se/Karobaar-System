@@ -8,12 +8,12 @@ The first release will be an online, responsive web application for desktop and 
 
 ## 2. Primary users
 
-- Owner: access to all branches, settings, reports, and approvals
-- Branch manager: manages one assigned branch and branch-level approvals
+- Owner: access to all settings, reports, and approvals
+- Shop manager: manages daily shop operations and approvals
 - Salesperson: creates sales, receives customer payments, and starts returns
-- Store keeper: receives purchased rolls and creates stock-transfer requests
+- Store keeper: receives purchased rolls and manages stock records
 
-There will be no public registration. The owner or an authorized administrator will create employee accounts and assign their branch and permissions.
+There will be no public registration. The owner or an authorized administrator will create employee accounts and assign their permissions.
 
 ## 3. Core business rules
 
@@ -25,7 +25,6 @@ There will be no public registration. The owner or an authorized administrator w
 - Products can have multiple colors and multiple rolls.
 - Sales and purchases can be fully paid, partially paid, or unpaid.
 - All payments in the first release are recorded as cash payments.
-- Stock transfers require approval and confirmation by the receiving branch.
 - A paper invoice is not required for a return. Employees can find the original sale online.
 - Return and exchange actions must remain linked to the original sale.
 
@@ -36,20 +35,13 @@ There will be no public registration. The owner or an authorized administrator w
 - Secure login and logout
 - Owner-created employee accounts
 - Role and permission-based access
-- Branch assignment
 - Active/inactive employee status
-
-### Branches
-
-- Create and manage branches
-- Separate branch inventory, employees, sales, expenses, and cash records
-- Combined owner dashboard
 
 ### Fabric and roll inventory
 
 - Fabric, article/design, category, brand, and color
 - Unique barcode for each roll
-- Original meters, remaining meters, cost rate, sale rate, status, and current branch
+- Original meters, remaining meters, cost rate, sale rate, and status
 - Roll statuses such as available, in transit, sold, returned, and damaged
 - Stock movement history
 
@@ -61,7 +53,7 @@ There will be no public registration. The owner or an authorized administrator w
 - Supplier ledger and later payments
 - Purchase return support
 
-### Customers, sales, and udhaar
+### Customers, sales, and balances
 
 - Customer profiles
 - Sale of one or more rolls
@@ -77,29 +69,21 @@ There will be no public registration. The owner or an authorized administrator w
 - Exchange handled through linked return and new sale entries
 - Automatic cash and ledger adjustment
 
-### Branch stock transfers
-
-- Transfer request from one branch to another
-- Approval or rejection
-- In-transit state
-- Receiving-branch confirmation
-- Complete audit history
-
 ### Cash and expenses
 
-- Branch opening and closing cash summary
+- Shop opening and closing cash summary
 - Cash sales and customer receipts
-- Supplier payments and branch expenses
+- Supplier payments and shop expenses
 - Categorized expenses
 
 ### Dashboard and reports
 
-- Branch-wise and combined stock
+- Current shop stock
 - Roll-wise remaining stock
 - Sales, purchases, returns, and expenses
-- Customer receivables and supplier payables
+- Customer and supplier balances
 - Estimated gross and net profit
-- Stock transfers and employee activity
+- Employee activity
 
 ## 5. First-release exclusions
 
@@ -115,17 +99,16 @@ These can be considered after Phase 1 is stable.
 
 ## 6. Main workflow
 
-1. Owner creates branches and employee accounts.
-2. A purchase adds individual fabric rolls to a branch and updates the supplier ledger.
-3. A sale selects rolls, reduces stock, records received cash, and updates customer udhaar.
+1. Owner creates employee accounts and assigns permissions.
+2. A purchase adds individual fabric rolls to shop stock and updates the supplier ledger.
+3. A sale selects rolls, reduces stock, records received cash, and updates the customer balance.
 4. Later customer or supplier payments update the appropriate ledger.
 5. Returns remain connected to the original sale and require authorized approval.
-6. Branch transfers move through request, approval, transit, and receipt states.
 
 ## 7. Acceptance goals
 
-- The owner can view accurate stock and financial balances for every branch.
-- Employees only access actions and branches allowed by their roles.
+- The owner can view accurate shop stock and financial balances.
+- Employees only access actions allowed by their roles.
 - Every stock or ledger change has a traceable source and user.
 - No completed transaction leaves stock and financial records out of sync.
 - The interface works clearly on desktop and mobile browsers.

@@ -9,9 +9,9 @@ export const initialCustomers: Customer[] = [
 ]
 
 export const customerLedger: CustomerLedgerEntry[] = [
-  { id: 1, date: '17 Oct 2026', reference: 'LHR-0128', description: 'Sale · 4 rolls, 312 meters', sale: 187200, received: 0, balance: 370000, type: 'Sale' },
-  { id: 2, date: '13 Oct 2026', reference: 'REC-0068', description: 'Cash received · Lahore Main', sale: 0, received: 100000, balance: 182800, type: 'Payment' },
-  { id: 3, date: '10 Oct 2026', reference: 'LHR-0112', description: 'Sale · 3 rolls, 228 meters', sale: 136800, received: 0, balance: 282800, type: 'Sale' },
+  { id: 1, date: '17 Oct 2026', reference: 'SAL-0128', description: 'Sale · 4 rolls, 312 meters', sale: 187200, received: 0, balance: 370000, type: 'Sale' },
+  { id: 2, date: '13 Oct 2026', reference: 'REC-0068', description: 'Cash received', sale: 0, received: 100000, balance: 182800, type: 'Payment' },
+  { id: 3, date: '10 Oct 2026', reference: 'SAL-0112', description: 'Sale · 3 rolls, 228 meters', sale: 136800, received: 0, balance: 282800, type: 'Sale' },
   { id: 4, date: '06 Oct 2026', reference: 'SRT-0008', description: 'Sale return adjustment', sale: 0, received: 12000, balance: 146000, type: 'Return' },
 ]
 

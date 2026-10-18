@@ -1,8 +1,6 @@
 import {
-  ArrowLeftRight,
   BadgeDollarSign,
   Boxes,
-  Building2,
   ChevronDown,
   ClipboardList,
   LayoutDashboard,
@@ -11,7 +9,6 @@ import {
   RotateCcw,
   Search,
   ShoppingCart,
-  Store,
   Truck,
   Users,
   X,
@@ -26,7 +23,6 @@ const navItems = [
   { to: '/sales', label: 'Sales', icon: ClipboardList },
   { to: '/customers', label: 'Customers', icon: Users },
   { to: '/suppliers', label: 'Suppliers', icon: Truck },
-  { to: '/transfers', label: 'Stock Transfers', icon: ArrowLeftRight },
   { to: '/returns', label: 'Returns', icon: RotateCcw },
   { to: '/expenses', label: 'Cash & Expenses', icon: BadgeDollarSign },
   { to: '/reports', label: 'Reports', icon: PackageSearch },
@@ -59,15 +55,6 @@ export function AppShell() {
           >
             <X size={20} />
           </button>
-        </div>
-
-        <div className="branch-pill">
-          <Building2 size={17} />
-          <div>
-            <small>Current branch</small>
-            <strong>Lahore Main</strong>
-          </div>
-          <ChevronDown size={16} />
         </div>
 
         <nav className="main-nav" aria-label="Main navigation">
@@ -111,12 +98,6 @@ export function AppShell() {
               placeholder="Search invoice, customer, roll or barcode..."
             />
             <kbd>Ctrl K</kbd>
-          </div>
-          <div className="topbar-actions">
-            <button className="branch-mobile">
-              <Store size={17} />
-              Lahore Main
-            </button>
           </div>
         </header>
 

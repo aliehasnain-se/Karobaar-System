@@ -15,7 +15,6 @@ Planned frontend modules:
 
 - auth
 - dashboard
-- branches
 - employees
 - inventory
 - suppliers
@@ -23,21 +22,18 @@ Planned frontend modules:
 - customers
 - sales
 - returns
-- transfers
 - expenses
 - reports
 
 Planned Django applications:
 
 - accounts
-- branches
 - inventory
 - suppliers
 - purchases
 - customers
 - sales
 - returns
-- transfers
 - finance
 - audit
 
@@ -63,7 +59,7 @@ Shared code must stay limited to genuine cross-module concerns such as API clien
 - Login and sensitive endpoints will be rate-limited.
 - API errors must not expose secrets, stack traces, or private data in production.
 - Inputs are validated and normalized before persistence.
-- Audit logs record actor, action, target, branch, and timestamp for sensitive changes.
+- Audit logs record actor, action, target, and timestamp for sensitive changes.
 - Dependencies will be pinned and checked before releases.
 - Database backups and a restore procedure are required before production launch.
 

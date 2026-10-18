@@ -1,4 +1,4 @@
-import { Filter, PackagePlus, Plus, Search } from 'lucide-react'
+import { PackagePlus, Plus, Search } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AddFabricModal } from '../components/AddFabricModal'
@@ -10,7 +10,6 @@ type InventoryTab = 'rolls' | 'fabrics'
 export function InventoryPage() {
   const [activeTab, setActiveTab] = useState<InventoryTab>('rolls')
   const [search, setSearch] = useState('')
-  const [branch, setBranch] = useState('All branches')
   const [status, setStatus] = useState('All statuses')
   const [fabrics, setFabrics] = useState<Fabric[]>(initialFabrics)
   const [showAddFabric, setShowAddFabric] = useState(false)
@@ -20,11 +19,10 @@ export function InventoryPage() {
     return inventoryRolls.filter((roll) => {
       const matchesSearch = !term || [roll.fabric, roll.article, roll.color, roll.rollNumber, roll.barcode]
         .some((value) => value.toLowerCase().includes(term))
-      const matchesBranch = branch === 'All branches' || roll.branch === branch
       const matchesStatus = status === 'All statuses' || roll.status === status
-      return matchesSearch && matchesBranch && matchesStatus
+      return matchesSearch && matchesStatus
     })
-  }, [branch, search, status])
+  }, [search, status])
 
   const filteredFabrics = useMemo(() => {
     const term = search.trim().toLowerCase()
@@ -67,7 +65,6 @@ export function InventoryPage() {
           <div className="inventory-filters">
             <label className="table-search"><Search size={16} /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search inventory..." /></label>
             {activeTab === 'rolls' && <>
-              <label className="select-wrap"><Filter size={15} /><select value={branch} onChange={(event) => setBranch(event.target.value)} aria-label="Filter branch"><option>All branches</option><option>Lahore Main</option><option>Faisalabad</option><option>Rawalpindi</option></select></label>
               <select className="plain-select" value={status} onChange={(event) => setStatus(event.target.value)} aria-label="Filter status"><option>All statuses</option><option>Available</option><option>Low stock</option><option>In transit</option></select>
             </>}
           </div>
@@ -77,14 +74,14 @@ export function InventoryPage() {
           <div className="inventory-table-wrap">
             <p className="mobile-scroll-hint" aria-hidden="true">Swipe left to see more columns →</p>
             <table>
-              <thead><tr><th>Roll / Barcode</th><th>Fabric</th><th>Color</th><th>Original</th><th>Remaining</th><th>Branch</th><th>Status</th></tr></thead>
+              <thead><tr><th>Roll / Barcode</th><th>Fabric</th><th>Color</th><th>Original</th><th>Remaining</th><th>Status</th></tr></thead>
               <tbody>
                 {filteredRolls.map((roll) => (
                   <tr key={roll.id}>
                     <td><strong>{roll.rollNumber}</strong><small className="cell-subtext">{roll.barcode}</small></td>
                     <td><strong>{roll.fabric}</strong><small className="cell-subtext">{roll.article}</small></td>
                     <td><span className="color-dot" />{roll.color}</td>
-                    <td>{roll.originalMeters} m</td><td><strong>{roll.remainingMeters} m</strong></td><td>{roll.branch}</td>
+                    <td>{roll.originalMeters} m</td><td><strong>{roll.remainingMeters} m</strong></td>
                     <td><span className={`stock-status stock-status--${roll.status.toLowerCase().replace(' ', '-')}`}>{roll.status}</span></td>
                   </tr>
                 ))}

@@ -9,11 +9,11 @@ export const initialFabrics: Fabric[] = [
 ]
 
 export const inventoryRolls: FabricRoll[] = [
-  { id: 1, barcode: '890101000128', rollNumber: 'R-0128', fabric: 'Wash & Wear Premium', article: 'WW-101', color: 'Navy Blue', originalMeters: 82.5, remainingMeters: 82.5, branch: 'Lahore Main', status: 'Available' },
-  { id: 2, barcode: '890101000127', rollNumber: 'R-0127', fabric: 'Cotton Soft Finish', article: 'CT-205', color: 'White', originalMeters: 76, remainingMeters: 76, branch: 'Lahore Main', status: 'Available' },
-  { id: 3, barcode: '890101000126', rollNumber: 'R-0126', fabric: 'Boski Gold', article: 'BK-310', color: 'Cream', originalMeters: 80, remainingMeters: 80, branch: 'Faisalabad', status: 'Available' },
-  { id: 4, barcode: '890101000125', rollNumber: 'R-0125', fabric: 'Khaddar Winter', article: 'KD-118', color: 'Charcoal', originalMeters: 74.5, remainingMeters: 18.5, branch: 'Rawalpindi', status: 'Low stock' },
-  { id: 5, barcode: '890101000124', rollNumber: 'R-0124', fabric: 'Linen Plain', article: 'LN-440', color: 'Beige', originalMeters: 78, remainingMeters: 78, branch: 'Lahore Main', status: 'In transit' },
-  { id: 6, barcode: '890101000123', rollNumber: 'R-0123', fabric: 'Cotton Soft Finish', article: 'CT-205', color: 'Sky Blue', originalMeters: 81, remainingMeters: 81, branch: 'Faisalabad', status: 'Available' },
+  { id: 1, barcode: '890101000128', rollNumber: 'R-0128', fabric: 'Wash & Wear Premium', article: 'WW-101', color: 'Navy Blue', originalMeters: 82.5, remainingMeters: 82.5, status: 'Available' },
+  { id: 2, barcode: '890101000127', rollNumber: 'R-0127', fabric: 'Cotton Soft Finish', article: 'CT-205', color: 'White', originalMeters: 76, remainingMeters: 76, status: 'Available' },
+  { id: 3, barcode: '890101000126', rollNumber: 'R-0126', fabric: 'Boski Gold', article: 'BK-310', color: 'Cream', originalMeters: 80, remainingMeters: 80, status: 'Available' },
+  { id: 4, barcode: '890101000125', rollNumber: 'R-0125', fabric: 'Khaddar Winter', article: 'KD-118', color: 'Charcoal', originalMeters: 74.5, remainingMeters: 18.5, status: 'Low stock' },
+  { id: 5, barcode: '890101000124', rollNumber: 'R-0124', fabric: 'Linen Plain', article: 'LN-440', color: 'Beige', originalMeters: 78, remainingMeters: 78, status: 'In transit' },
+  { id: 6, barcode: '890101000123', rollNumber: 'R-0123', fabric: 'Cotton Soft Finish', article: 'CT-205', color: 'Sky Blue', originalMeters: 81, remainingMeters: 81, status: 'Available' },
 ]
 

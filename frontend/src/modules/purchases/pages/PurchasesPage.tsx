@@ -12,7 +12,7 @@ export function PurchasesPage() {
   const filteredPurchases = useMemo(() => {
     const term = search.trim().toLowerCase()
     return purchases.filter((purchase) => {
-      const matchesSearch = !term || [purchase.number, purchase.supplier, purchase.branch]
+      const matchesSearch = !term || [purchase.number, purchase.supplier]
         .some((value) => value.toLowerCase().includes(term))
       return matchesSearch && (status === 'All statuses' || purchase.status === status)
     })
@@ -42,19 +42,19 @@ export function PurchasesPage() {
         <div className="inventory-toolbar">
           <div className="panel-heading"><div><h2>Purchase history</h2><p>{filteredPurchases.length} records</p></div></div>
           <div className="inventory-filters">
-            <label className="table-search"><Search size={16} /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Invoice, supplier or branch..." /></label>
+            <label className="table-search"><Search size={16} /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Invoice or supplier..." /></label>
             <select className="plain-select" value={status} onChange={(event) => setStatus(event.target.value)} aria-label="Filter payment status"><option>All statuses</option><option>Paid</option><option>Partial</option><option>Unpaid</option></select>
           </div>
         </div>
         <div className="inventory-table-wrap">
           <p className="mobile-scroll-hint" aria-hidden="true">Swipe left to see more columns →</p>
           <table>
-            <thead><tr><th>Purchase</th><th>Supplier</th><th>Branch</th><th>Stock received</th><th>Total</th><th>Paid</th><th>Balance</th><th>Status</th></tr></thead>
+            <thead><tr><th>Purchase</th><th>Supplier</th><th>Stock received</th><th>Total</th><th>Paid</th><th>Balance</th><th>Status</th></tr></thead>
             <tbody>
               {filteredPurchases.map((purchase) => (
                 <tr key={purchase.id}>
                   <td><strong>{purchase.number}</strong><small className="cell-subtext">{purchase.date}</small></td>
-                  <td><strong>{purchase.supplier}</strong></td><td>{purchase.branch}</td>
+                  <td><strong>{purchase.supplier}</strong></td>
                   <td>{purchase.rolls} rolls<small className="cell-subtext">{purchase.meters} meters</small></td>
                   <td><strong>{money(purchase.total)}</strong></td><td>{money(purchase.paid)}</td><td>{money(purchase.total - purchase.paid)}</td>
                   <td><span className={`status status--${purchase.status.toLowerCase()}`}>{purchase.status}</span></td>

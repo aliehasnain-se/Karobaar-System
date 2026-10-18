@@ -29,7 +29,7 @@ export function CustomerDetailPage() {
           <dl><div><dt><Phone size={15} /> Phone</dt><dd>{customer.phone}</dd></div><div><dt><Building2 size={15} /> City</dt><dd>{customer.city}</dd></div></dl>
         </article>
         <article className="panel supplier-balance-card"><span>Current balance</span><strong>{money(balance)}</strong><small>{extraReceived > 0 ? `${money(extraReceived)} demo payment received` : 'Remaining amount to receive'}</small></article>
-        <article className="panel supplier-balance-card"><span>Total sales</span><strong>{money(customer.sales)}</strong><small>Across all branches</small></article>
+        <article className="panel supplier-balance-card"><span>Total sales</span><strong>{money(customer.sales)}</strong><small>All recorded sales</small></article>
         <article className="panel supplier-balance-card"><span>Cash received</span><strong>{money(customer.received + extraReceived)}</strong><small>Total customer payments</small></article>
       </section>
 

@@ -2,8 +2,8 @@ import {
   ArrowRight,
   Boxes,
   ClipboardPlus,
+  RotateCcw,
   ScanBarcode,
-  Truck,
   Users,
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
@@ -16,14 +16,14 @@ const stats = [
 ]
 
 const recentSales = [
-  { invoice: 'LHR-0128', customer: 'Madina Fabrics', quantity: '4 rolls · 312 m', total: 'Rs. 187,200', status: 'Partial' },
-  { invoice: 'LHR-0127', customer: 'Al-Rehman Cloth', quantity: '2 rolls · 144 m', total: 'Rs. 82,800', status: 'Paid' },
-  { invoice: 'LHR-0126', customer: 'Usman Traders', quantity: '6 rolls · 465 m', total: 'Rs. 269,700', status: 'Unpaid' },
-  { invoice: 'LHR-0125', customer: 'New City Garments', quantity: '1 roll · 78 m', total: 'Rs. 46,800', status: 'Paid' },
+  { invoice: 'SAL-0128', customer: 'Madina Fabrics', quantity: '4 rolls · 312 m', total: 'Rs. 187,200', status: 'Partial' },
+  { invoice: 'SAL-0127', customer: 'Al-Rehman Cloth', quantity: '2 rolls · 144 m', total: 'Rs. 82,800', status: 'Paid' },
+  { invoice: 'SAL-0126', customer: 'Usman Traders', quantity: '6 rolls · 465 m', total: 'Rs. 269,700', status: 'Unpaid' },
+  { invoice: 'SAL-0125', customer: 'New City Garments', quantity: '1 roll · 78 m', total: 'Rs. 46,800', status: 'Paid' },
 ]
 
 const tasks = [
-  { title: 'Stock transfer approvals', detail: '2 requests waiting', to: '/transfers', icon: Truck },
+  { title: 'Pending returns', detail: '2 requests waiting', to: '/returns', icon: RotateCcw },
   { title: 'Overdue customer payments', detail: '3 customers · Rs. 184,000', to: '/customers', icon: Users },
   { title: 'Low stock fabrics', detail: '6 items below minimum', to: '/inventory', icon: Boxes },
 ]
@@ -34,7 +34,7 @@ export function DashboardPage() {
       <div className="page-heading">
         <div>
           <h1>Dashboard</h1>
-          <p>Saturday, 17 October 2026 · Lahore Main</p>
+          <p>Saturday, 17 October 2026</p>
         </div>
         <div className="heading-actions">
           <Link to="/purchases" className="button button--secondary">
@@ -61,7 +61,7 @@ export function DashboardPage() {
           <div className="panel-heading">
             <div>
               <h2>Recent sales</h2>
-              <p>Latest invoices from this branch</p>
+              <p>Latest shop invoices</p>
             </div>
             <Link to="/sales" className="text-link">View all <ArrowRight size={15} /></Link>
           </div>
@@ -93,19 +93,6 @@ export function DashboardPage() {
             ))}
           </div>
         </article>
-      </section>
-
-      <section className="panel branch-summary">
-        <div className="panel-heading">
-          <div><h2>Branch summary</h2><p>Current month performance</p></div>
-          <Link to="/reports" className="text-link">Open reports <ArrowRight size={15} /></Link>
-        </div>
-        <div className="branch-table">
-          <div className="branch-table-row branch-table-head"><span>Branch</span><span>Sales</span><span>Stock</span><span>Customer balance</span></div>
-          <div className="branch-table-row"><strong>Lahore Main</strong><span>Rs. 4.8M</span><span>7,840 m</span><span>Rs. 520K</span></div>
-          <div className="branch-table-row"><strong>Faisalabad</strong><span>Rs. 3.4M</span><span>6,130 m</span><span>Rs. 410K</span></div>
-          <div className="branch-table-row"><strong>Rawalpindi</strong><span>Rs. 2.6M</span><span>4,450 m</span><span>Rs. 310K</span></div>
-        </div>
       </section>
     </div>
   )

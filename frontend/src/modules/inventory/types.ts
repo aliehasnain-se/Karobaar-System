@@ -20,7 +20,6 @@ export type FabricRoll = {
   color: string
   originalMeters: number
   remainingMeters: number
-  branch: string
   status: RollStatus
 }
 

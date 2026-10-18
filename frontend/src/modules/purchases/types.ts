@@ -5,7 +5,6 @@ export type Purchase = {
   number: string
   date: string
   supplier: string
-  branch: string
   rolls: number
   meters: number
   total: number
