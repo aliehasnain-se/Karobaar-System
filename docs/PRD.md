@@ -6,14 +6,11 @@ Karobaar System is a web application for a wholesale fabric business currently m
 
 The first release will be an online, responsive web application for desktop and mobile browsers. A separate mobile application and offline support are outside the first release.
 
-## 2. Primary users
+## 2. Primary user
 
-- Owner: access to all settings, reports, and approvals
-- Shop manager: manages daily shop operations and approvals
-- Salesperson: creates sales, receives customer payments, and starts returns
-- Store keeper: receives purchased rolls and manages stock records
+- Owner: full access to the system
 
-There will be no public registration. The owner or an authorized administrator will create employee accounts and assign their permissions.
+Phase 1 has one owner account and no public registration. Employee accounts and roles can be added later without changing the business modules.
 
 ## 3. Core business rules
 
@@ -21,11 +18,11 @@ There will be no public registration. The owner or an authorized administrator w
 - Yard entries will be converted to meters while preserving the originally entered value and unit.
 - Stock is tracked by individual roll/thaan and also shown as total meters per fabric.
 - A roll records its original and remaining quantity.
-- The current business normally sells a complete roll, but quantities will support decimals for future flexibility.
+- The current business sells complete rolls/thaans. Each thaan keeps its meter quantity for stock detail, while the owner enters one final selling price for the complete thaan.
 - Products can have multiple colors and multiple rolls.
 - Sales and purchases can be fully paid, partially paid, or unpaid.
 - All payments in the first release are recorded as cash payments.
-- A paper invoice is not required for a return. Employees can find the original sale online.
+- A paper invoice is not required for a return. The original sale can be found online.
 - Return and exchange actions must remain linked to the original sale.
 
 ## 4. Phase 1 modules
@@ -33,9 +30,14 @@ There will be no public registration. The owner or an authorized administrator w
 ### Authentication and access
 
 - Secure login and logout
-- Owner-created employee accounts
-- Role and permission-based access
-- Active/inactive employee status
+- One owner account in Phase 1
+- Authentication remains separate from business modules so roles can be added later
+
+### Shop settings
+
+- Shop name, owner name, phone, city, and address
+- Shop name used on barcode labels
+- No passwords, API keys, or private credentials stored in shop settings
 
 ### Fabric and roll inventory
 
@@ -64,26 +66,18 @@ There will be no public registration. The owner or an authorized administrator w
 ### Returns and exchanges
 
 - Return linked to the original sale
-- Return reason and manager approval
+- Return reason
 - Restock or damaged-stock decision
 - Exchange handled through linked return and new sale entries
 - Automatic cash and ledger adjustment
-
-### Cash and expenses
-
-- Shop opening and closing cash summary
-- Cash sales and customer receipts
-- Supplier payments and shop expenses
-- Categorized expenses
 
 ### Dashboard and reports
 
 - Current shop stock
 - Roll-wise remaining stock
-- Sales, purchases, returns, and expenses
+- Sales, purchases, and returns
 - Customer and supplier balances
-- Estimated gross and net profit
-- Employee activity
+- Estimated gross profit
 
 ## 5. First-release exclusions
 
@@ -93,22 +87,30 @@ There will be no public registration. The owner or an authorized administrator w
 - Receipt-printer integration
 - E-commerce storefront
 - Advanced accounting or tax filing
+- Shop expense and opening/closing cash tracking
+- Employee accounts, roles, and permissions
 - Automated WhatsApp messages
 
 These can be considered after Phase 1 is stable.
 
+## 5.1 Future purchase automation
+
+- CSV or Excel purchase import
+- Supplier bill image/PDF reading with OCR
+- Review screen before imported purchase data is saved
+- Automatic roll and barcode creation when the source contains roll-wise quantities
+- Bulk roll entry when a bill only provides combined quantities
+
 ## 6. Main workflow
 
-1. Owner creates employee accounts and assigns permissions.
-2. A purchase adds individual fabric rolls to shop stock and updates the supplier ledger.
-3. A sale selects rolls, reduces stock, records received cash, and updates the customer balance.
-4. Later customer or supplier payments update the appropriate ledger.
-5. Returns remain connected to the original sale and require authorized approval.
+1. A purchase adds individual fabric rolls to shop stock and updates the supplier ledger.
+2. A sale selects rolls, reduces stock, records received cash, and updates the customer balance.
+3. Later customer or supplier payments update the appropriate ledger.
+4. A return stays connected to the original sale and updates stock and balance directly.
 
 ## 7. Acceptance goals
 
 - The owner can view accurate shop stock and financial balances.
-- Employees only access actions allowed by their roles.
 - Every stock or ledger change has a traceable source and user.
 - No completed transaction leaves stock and financial records out of sync.
 - The interface works clearly on desktop and mobile browsers.

@@ -1,6 +1,6 @@
 import { PackagePlus, Plus, Search } from 'lucide-react'
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { AddFabricModal } from '../components/AddFabricModal'
 import { initialFabrics, inventoryRolls } from '../data/mockInventory'
 import type { Fabric } from '../types'
@@ -8,11 +8,39 @@ import type { Fabric } from '../types'
 type InventoryTab = 'rolls' | 'fabrics'
 
 export function InventoryPage() {
-  const [activeTab, setActiveTab] = useState<InventoryTab>('rolls')
-  const [search, setSearch] = useState('')
-  const [status, setStatus] = useState('All statuses')
+  const [searchParams, setSearchParams] = useSearchParams()
   const [fabrics, setFabrics] = useState<Fabric[]>(initialFabrics)
   const [showAddFabric, setShowAddFabric] = useState(false)
+  const search = searchParams.get('q') ?? ''
+  const activeTab: InventoryTab = searchParams.get('tab') === 'fabrics' ? 'fabrics' : 'rolls'
+  const status = searchParams.get('status') === 'low-stock' ? 'Low stock' : searchParams.get('status') === 'in-transit' ? 'In transit' : searchParams.get('status') === 'available' ? 'Available' : 'All statuses'
+
+  const changeTab = (tab: InventoryTab) => {
+    const nextParams = new URLSearchParams(searchParams)
+    if (tab === 'fabrics') {
+      nextParams.set('tab', 'fabrics')
+      nextParams.delete('status')
+    } else {
+      nextParams.delete('tab')
+    }
+    setSearchParams(nextParams, { replace: true })
+  }
+
+  const changeStatus = (value: string) => {
+    const nextParams = new URLSearchParams(searchParams)
+    if (value === 'Low stock') nextParams.set('status', 'low-stock')
+    else if (value === 'In transit') nextParams.set('status', 'in-transit')
+    else if (value === 'Available') nextParams.set('status', 'available')
+    else nextParams.delete('status')
+    setSearchParams(nextParams, { replace: true })
+  }
+
+  const changeSearch = (value: string) => {
+    const nextParams = new URLSearchParams(searchParams)
+    if (value) nextParams.set('q', value)
+    else nextParams.delete('q')
+    setSearchParams(nextParams, { replace: true })
+  }
 
   const filteredRolls = useMemo(() => {
     const term = search.trim().toLowerCase()
@@ -32,11 +60,12 @@ export function InventoryPage() {
 
   const totalMeters = inventoryRolls.reduce((sum, roll) => sum + roll.remainingMeters, 0)
   const availableRolls = inventoryRolls.filter((roll) => roll.status === 'Available').length
+  const lowStockRolls = inventoryRolls.filter((roll) => roll.status === 'Low stock').length
 
   const addFabric = (fabric: Fabric) => {
     setFabrics((current) => [fabric, ...current])
     setShowAddFabric(false)
-    setActiveTab('fabrics')
+    changeTab('fabrics')
   }
 
   return (
@@ -53,19 +82,19 @@ export function InventoryPage() {
         <div><span>Total stock</span><strong>{totalMeters.toLocaleString()} m</strong></div>
         <div><span>Available rolls</span><strong>{availableRolls}</strong></div>
         <div><span>Fabric designs</span><strong>{fabrics.length}</strong></div>
-        <div><span>Low stock</span><strong>6</strong></div>
+        <div><span>Low stock</span><strong>{lowStockRolls}</strong></div>
       </section>
 
       <section className="panel inventory-panel">
         <div className="inventory-toolbar">
           <div className="tabs" role="tablist" aria-label="Inventory view">
-            <button className={activeTab === 'rolls' ? 'tab active' : 'tab'} onClick={() => setActiveTab('rolls')}>Rolls</button>
-            <button className={activeTab === 'fabrics' ? 'tab active' : 'tab'} onClick={() => setActiveTab('fabrics')}>Fabrics</button>
+            <button className={activeTab === 'rolls' ? 'tab active' : 'tab'} onClick={() => changeTab('rolls')}>Rolls</button>
+            <button className={activeTab === 'fabrics' ? 'tab active' : 'tab'} onClick={() => changeTab('fabrics')}>Fabrics</button>
           </div>
           <div className="inventory-filters">
-            <label className="table-search"><Search size={16} /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search inventory..." /></label>
+            <label className="table-search"><Search size={16} /><input value={search} onChange={(event) => changeSearch(event.target.value)} placeholder="Search inventory..." /></label>
             {activeTab === 'rolls' && <>
-              <select className="plain-select" value={status} onChange={(event) => setStatus(event.target.value)} aria-label="Filter status"><option>All statuses</option><option>Available</option><option>Low stock</option><option>In transit</option></select>
+              <select className="plain-select" value={status} onChange={(event) => changeStatus(event.target.value)} aria-label="Filter status"><option>All statuses</option><option>Available</option><option>Low stock</option><option>In transit</option></select>
             </>}
           </div>
         </div>

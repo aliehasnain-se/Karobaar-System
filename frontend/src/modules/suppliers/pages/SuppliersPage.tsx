@@ -2,13 +2,12 @@ import { ChevronRight, Plus, Search } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AddSupplierModal } from '../components/AddSupplierModal'
-import { initialSuppliers } from '../data/mockSuppliers'
-import type { Supplier } from '../types'
+import { useSuppliers } from '../context/useSuppliers'
 
 const money = (value: number) => `Rs. ${value.toLocaleString()}`
 
 export function SuppliersPage() {
-  const [suppliers, setSuppliers] = useState<Supplier[]>(initialSuppliers)
+  const { suppliers, addSupplier } = useSuppliers()
   const [search, setSearch] = useState('')
   const [balanceFilter, setBalanceFilter] = useState('All suppliers')
   const [showAddSupplier, setShowAddSupplier] = useState(false)
@@ -68,7 +67,7 @@ export function SuppliersPage() {
         </div>
       </section>
 
-      {showAddSupplier && <AddSupplierModal onClose={() => setShowAddSupplier(false)} onAdd={(supplier) => { setSuppliers((current) => [supplier, ...current]); setShowAddSupplier(false) }} />}
+      {showAddSupplier && <AddSupplierModal onClose={() => setShowAddSupplier(false)} onAdd={(supplier) => { addSupplier(supplier); setShowAddSupplier(false) }} />}
     </div>
   )
 }

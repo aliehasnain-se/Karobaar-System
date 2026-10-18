@@ -20,6 +20,12 @@ export type SaleItem = {
   article: string
   color: string
   meters: number
-  rate: number
+  price: number
+}
+
+export type SaleDetail = Sale & {
+  customerPhone: string
+  discount: number
+  items: SaleItem[]
 }
 

@@ -1,15 +1,26 @@
 import { ArrowLeft, Search, Save } from 'lucide-react'
 import { FormEvent, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { inventoryRolls } from '../../inventory/data/mockInventory'
+import { saleDetails } from '../../sales/data/mockSales'
 import { returnableInvoices } from '../data/mockReturns'
 import type { ReturnableInvoice } from '../types'
 
 const money = (value: number) => `Rs. ${value.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
 
 export function NewReturnPage() {
-  const [query, setQuery] = useState('')
-  const [invoice, setInvoice] = useState<ReturnableInvoice | null>(null)
+  const [searchParams] = useSearchParams()
+  const requestedInvoice = searchParams.get('invoice')
+  const linkedSale = saleDetails.find((item) => item.invoice === requestedInvoice)
+  const linkedInvoice = returnableInvoices.find((item) => item.invoice === requestedInvoice) ?? (linkedSale ? {
+    invoice: linkedSale.invoice,
+    date: linkedSale.date,
+    customer: linkedSale.customer,
+    total: linkedSale.total,
+    items: linkedSale.items.map((item) => ({ id: item.rollId, rollNumber: item.rollNumber, fabric: item.fabric, color: item.color, meters: item.meters, amount: item.price })),
+  } : null)
+  const [query, setQuery] = useState(linkedInvoice?.invoice ?? '')
+  const [invoice, setInvoice] = useState<ReturnableInvoice | null>(linkedInvoice)
   const [selectedIds, setSelectedIds] = useState<number[]>([])
   const [kind, setKind] = useState<'Return' | 'Exchange'>('Return')
   const [condition, setCondition] = useState('Resellable')
@@ -43,8 +54,8 @@ export function NewReturnPage() {
 
   return (
     <form className="return-form-page" onSubmit={handleSubmit}>
-      <div className="page-heading"><div className="title-with-back"><Link className="back-button" to="/returns" aria-label="Back to returns"><ArrowLeft size={19} /></Link><div><h1>New return</h1><p>Original invoice search karke return ya exchange create karein.</p></div></div><div className="heading-actions"><Link className="button button--secondary" to="/returns">Cancel</Link><button className="button button--primary" type="submit" disabled={!invoice || !selectedIds.length}><Save size={17} /> Save request</button></div></div>
-      {saved && <div className="form-notice" role="status"><strong>Return request ready.</strong> Owner/manager approval ke baad stock aur customer balance update hoga.</div>}
+      <div className="page-heading"><div className="title-with-back"><Link className="back-button" to="/returns" aria-label="Back to returns"><ArrowLeft size={19} /></Link><div><h1>New return</h1><p>Original invoice search karke return ya exchange complete karein.</p></div></div><div className="heading-actions"><Link className="button button--secondary" to="/returns">Cancel</Link><button className="button button--primary" type="submit" disabled={!invoice || !selectedIds.length}><Save size={17} /> Complete return</button></div></div>
+      {saved && <div className="form-notice" role="status"><strong>Return completed.</strong> Backend connect hone par stock aur customer balance foran update honge.</div>}
 
       <section className="panel form-section">
         <div className="section-heading"><h2>Find original invoice</h2><p>Invoice number, customer name ya date se search karein.</p></div>
@@ -54,7 +65,7 @@ export function NewReturnPage() {
 
       {invoice && <>
         <section className="panel form-section">
-          <div className="section-heading section-heading--row"><div><h2>Select sold rolls</h2><p>{invoice.invoice} · {invoice.customer}</p></div><button className="text-link" type="button" onClick={() => { setInvoice(null); setQuery(''); setSelectedIds([]) }}>Change invoice</button></div>
+          <div className="section-heading section-heading--row"><div><h2>Select sold thaans</h2><p>{invoice.invoice} · {invoice.customer}</p></div><button className="text-link" type="button" onClick={() => { setInvoice(null); setQuery(''); setSelectedIds([]) }}>Change invoice</button></div>
           <div className="return-items">{invoice.items.map((item) => <label key={item.id} className={selectedIds.includes(item.id) ? 'return-item active' : 'return-item'}><input type="checkbox" checked={selectedIds.includes(item.id)} onChange={() => setSelectedIds((current) => current.includes(item.id) ? current.filter((id) => id !== item.id) : [...current, item.id])} /><span><strong>{item.rollNumber} · {item.fabric}</strong><small>{item.color} · {item.meters} meters</small></span><b>{money(item.amount)}</b></label>)}</div>
         </section>
 
@@ -67,7 +78,7 @@ export function NewReturnPage() {
           </div>
 
           <aside className="panel purchase-summary-card">
-            <h2>Adjustment summary</h2><dl><div><dt>Selected rolls</dt><dd>{selectedIds.length}</dd></div><div><dt>Return value</dt><dd>{money(returnAmount)}</dd></div>{kind === 'Exchange' && <><div><dt>Replacement value</dt><dd>{money(replacementAmount)}</dd></div><div className="summary-balance"><dt>{difference > 0 ? 'Customer pays' : 'Customer balance adjustment'}</dt><dd>{money(Math.abs(difference))}</dd></div></>}{kind === 'Return' && <div className="summary-balance"><dt>Customer balance adjustment</dt><dd>{money(returnAmount)}</dd></div>}</dl><p className="approval-note">Status save hone par <strong>Pending</strong> hoga.</p>
+            <h2>Adjustment summary</h2><dl><div><dt>Selected rolls</dt><dd>{selectedIds.length}</dd></div><div><dt>Return value</dt><dd>{money(returnAmount)}</dd></div>{kind === 'Exchange' && <><div><dt>Replacement value</dt><dd>{money(replacementAmount)}</dd></div><div className="summary-balance"><dt>{difference > 0 ? 'Customer pays' : 'Customer balance adjustment'}</dt><dd>{money(Math.abs(difference))}</dd></div></>}{kind === 'Return' && <div className="summary-balance"><dt>Customer balance adjustment</dt><dd>{money(returnAmount)}</dd></div>}</dl><p className="adjustment-note">Complete karte hi return record save ho jayega.</p>
           </aside>
         </section>
       </>}

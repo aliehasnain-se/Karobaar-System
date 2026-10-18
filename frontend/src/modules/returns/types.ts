@@ -1,5 +1,3 @@
-export type ReturnStatus = 'Pending' | 'Approved' | 'Completed' | 'Rejected'
-
 export type ReturnRecord = {
   id: number
   number: string
@@ -9,7 +7,6 @@ export type ReturnRecord = {
   kind: 'Return' | 'Exchange'
   rolls: number
   amount: number
-  status: ReturnStatus
 }
 
 export type SoldRoll = {

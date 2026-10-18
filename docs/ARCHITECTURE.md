@@ -15,15 +15,16 @@ Planned frontend modules:
 
 - auth
 - dashboard
-- employees
 - inventory
+- barcodes
 - suppliers
 - purchases
 - customers
 - sales
 - returns
-- expenses
 - reports
+- search
+- settings
 
 Planned Django applications:
 
@@ -37,7 +38,9 @@ Planned Django applications:
 - finance
 - audit
 
-Shared code must stay limited to genuine cross-module concerns such as API clients, permissions, common UI controls, and validation helpers.
+Shared code must stay limited to genuine cross-module concerns such as API clients, authentication, common UI controls, and validation helpers.
+
+Phase 1 uses one owner account. Authentication stays in its own module and Django app, so roles and employee accounts can be added later without changing inventory, purchase, sale, or return modules.
 
 ## Data integrity
 
@@ -54,7 +57,7 @@ Shared code must stay limited to genuine cross-module concerns such as API clien
 - Secrets and environment-specific values belong in untracked `.env` files.
 - Safe placeholder names belong in committed `.env.example` files.
 - Passwords are handled only by Django's password hashing system.
-- Permissions are enforced by the backend, not only hidden in the frontend.
+- Owner access is enforced by the backend; future roles will use the same centralized access layer.
 - Production cookies, HTTPS, CORS, CSRF, trusted origins, and host settings are restricted by environment.
 - Login and sensitive endpoints will be rate-limited.
 - API errors must not expose secrets, stack traces, or private data in production.

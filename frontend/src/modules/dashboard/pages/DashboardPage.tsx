@@ -23,9 +23,9 @@ const recentSales = [
 ]
 
 const tasks = [
-  { title: 'Pending returns', detail: '2 requests waiting', to: '/returns', icon: RotateCcw },
-  { title: 'Overdue customer payments', detail: '3 customers · Rs. 184,000', to: '/customers', icon: Users },
-  { title: 'Low stock fabrics', detail: '6 items below minimum', to: '/inventory', icon: Boxes },
+  { title: 'Return history', detail: '4 recent records', to: '/returns', icon: RotateCcw },
+  { title: 'Overdue customer payments', detail: '4 customers · Rs. 1,240,000', to: '/customers?balance=with-balance', icon: Users },
+  { title: 'Low stock rolls', detail: '1 roll below minimum', to: '/inventory?tab=rolls&status=low-stock', icon: Boxes },
 ]
 
 export function DashboardPage() {
@@ -37,10 +37,10 @@ export function DashboardPage() {
           <p>Saturday, 17 October 2026</p>
         </div>
         <div className="heading-actions">
-          <Link to="/purchases" className="button button--secondary">
+          <Link to="/purchases/new" className="button button--secondary">
             <ClipboardPlus size={17} /> New purchase
           </Link>
-          <Link to="/sales" className="button button--primary">
+          <Link to="/sales/new" className="button button--primary">
             <ScanBarcode size={17} /> Create sale
           </Link>
         </div>

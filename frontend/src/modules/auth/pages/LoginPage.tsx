@@ -24,7 +24,7 @@ export function LoginPage() {
         </div>
         <div className="story-stat">
           <span>01</span>
-          <p>Secure access for owner, managers aur employees.</p>
+          <p>Secure access for the shop owner.</p>
         </div>
       </section>
 
@@ -32,7 +32,7 @@ export function LoginPage() {
         <form className="login-card" onSubmit={handleSubmit}>
           <p className="eyebrow">Welcome back</p>
           <h2>Sign in to Karobaar</h2>
-          <p className="muted">Use your owner or employee account.</p>
+          <p className="muted">Use your owner account.</p>
 
           <label>
             Username

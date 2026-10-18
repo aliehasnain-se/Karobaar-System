@@ -1,10 +1,10 @@
 import type { ReturnableInvoice, ReturnRecord } from '../types'
 
 export const returns: ReturnRecord[] = [
-  { id: 1, number: 'RET-0014', date: '17 Oct 2026', invoice: 'SAL-0118', customer: 'Madina Fabrics', kind: 'Exchange', rolls: 1, amount: 49200, status: 'Pending' },
-  { id: 2, number: 'RET-0013', date: '14 Oct 2026', invoice: 'SAL-0109', customer: 'New City Garments', kind: 'Return', rolls: 1, amount: 46800, status: 'Completed' },
-  { id: 3, number: 'RET-0012', date: '11 Oct 2026', invoice: 'SAL-0098', customer: 'Usman Traders', kind: 'Return', rolls: 2, amount: 93600, status: 'Approved' },
-  { id: 4, number: 'RET-0011', date: '08 Oct 2026', invoice: 'SAL-0087', customer: 'Al-Rehman Cloth', kind: 'Exchange', rolls: 1, amount: 41400, status: 'Rejected' },
+  { id: 1, number: 'RET-0014', date: '17 Oct 2026', invoice: 'SAL-0118', customer: 'Madina Fabrics', kind: 'Exchange', rolls: 1, amount: 49200 },
+  { id: 2, number: 'RET-0013', date: '14 Oct 2026', invoice: 'SAL-0109', customer: 'New City Garments', kind: 'Return', rolls: 1, amount: 46800 },
+  { id: 3, number: 'RET-0012', date: '11 Oct 2026', invoice: 'SAL-0098', customer: 'Usman Traders', kind: 'Return', rolls: 2, amount: 93600 },
+  { id: 4, number: 'RET-0011', date: '08 Oct 2026', invoice: 'SAL-0087', customer: 'Al-Rehman Cloth', kind: 'Exchange', rolls: 1, amount: 41400 },
 ]
 
 export const returnableInvoices: ReturnableInvoice[] = [

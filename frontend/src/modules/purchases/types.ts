@@ -22,3 +22,14 @@ export type PurchaseItem = {
   rate: number
 }
 
+export type PurchaseDetailItem = PurchaseItem & {
+  barcode: string
+  article: string
+}
+
+export type PurchaseDetail = Purchase & {
+  supplierId: number
+  supplierPhone: string
+  items: PurchaseDetailItem[]
+}
+

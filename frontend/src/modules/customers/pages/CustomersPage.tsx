@@ -1,17 +1,25 @@
 import { ChevronRight, Plus, Search } from 'lucide-react'
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { AddCustomerModal } from '../components/AddCustomerModal'
-import { initialCustomers } from '../data/mockCustomers'
-import type { Customer } from '../types'
+import { useCustomers } from '../context/useCustomers'
 
 const money = (value: number) => `Rs. ${value.toLocaleString()}`
 
 export function CustomersPage() {
-  const [customers, setCustomers] = useState<Customer[]>(initialCustomers)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const { customers, addCustomer } = useCustomers()
   const [search, setSearch] = useState('')
-  const [balanceFilter, setBalanceFilter] = useState('All customers')
   const [showAddCustomer, setShowAddCustomer] = useState(false)
+  const balanceFilter = searchParams.get('balance') === 'with-balance' ? 'With balance' : searchParams.get('balance') === 'fully-paid' ? 'Fully paid' : 'All customers'
+
+  const changeBalanceFilter = (value: string) => {
+    const nextParams = new URLSearchParams(searchParams)
+    if (value === 'With balance') nextParams.set('balance', 'with-balance')
+    else if (value === 'Fully paid') nextParams.set('balance', 'fully-paid')
+    else nextParams.delete('balance')
+    setSearchParams(nextParams, { replace: true })
+  }
 
   const filteredCustomers = useMemo(() => {
     const term = search.trim().toLowerCase()
@@ -45,7 +53,7 @@ export function CustomersPage() {
           <div className="panel-heading"><div><h2>Customer accounts</h2><p>{filteredCustomers.length} customers</p></div></div>
           <div className="inventory-filters">
             <label className="table-search"><Search size={16} /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Name, phone or city..." /></label>
-            <select className="plain-select" value={balanceFilter} onChange={(event) => setBalanceFilter(event.target.value)} aria-label="Filter customer balance"><option>All customers</option><option>With balance</option><option>Fully paid</option></select>
+            <select className="plain-select" value={balanceFilter} onChange={(event) => changeBalanceFilter(event.target.value)} aria-label="Filter customer balance"><option>All customers</option><option>With balance</option><option>Fully paid</option></select>
           </div>
         </div>
         <div className="inventory-table-wrap">
@@ -69,7 +77,7 @@ export function CustomersPage() {
         </div>
       </section>
 
-      {showAddCustomer && <AddCustomerModal onClose={() => setShowAddCustomer(false)} onAdd={(customer) => { setCustomers((current) => [customer, ...current]); setShowAddCustomer(false) }} />}
+      {showAddCustomer && <AddCustomerModal onClose={() => setShowAddCustomer(false)} onAdd={(customer) => { addCustomer(customer); setShowAddCustomer(false) }} />}
     </div>
   )
 }

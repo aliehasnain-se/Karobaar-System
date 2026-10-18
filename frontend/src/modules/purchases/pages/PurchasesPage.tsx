@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { purchases } from '../data/mockPurchases'
 
 const money = (value: number) => `Rs. ${value.toLocaleString()}`
+const csvValue = (value: string | number) => `"${String(value).replaceAll('"', '""')}"`
 
 export function PurchasesPage() {
   const [search, setSearch] = useState('')
@@ -21,12 +22,24 @@ export function PurchasesPage() {
   const totalPurchases = purchases.reduce((sum, purchase) => sum + purchase.total, 0)
   const totalPaid = purchases.reduce((sum, purchase) => sum + purchase.paid, 0)
 
+  const exportPurchases = () => {
+    const header = ['Purchase', 'Date', 'Supplier', 'Rolls', 'Meters', 'Total', 'Paid', 'Balance', 'Status']
+    const rows = filteredPurchases.map((purchase) => [purchase.number, purchase.date, purchase.supplier, purchase.rolls, purchase.meters, purchase.total, purchase.paid, purchase.total - purchase.paid, purchase.status])
+    const blob = new Blob([[header, ...rows].map((row) => row.map(csvValue).join(',')).join('\n')], { type: 'text/csv;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'purchases.csv'
+    link.click()
+    URL.revokeObjectURL(url)
+  }
+
   return (
     <div className="purchases-page">
       <div className="page-heading">
         <div><h1>Purchases</h1><p>Supplier purchases, received rolls aur payment balances.</p></div>
         <div className="heading-actions">
-          <button className="button button--secondary"><Download size={17} /> Export</button>
+          <button className="button button--secondary" onClick={exportPurchases} disabled={!filteredPurchases.length}><Download size={17} /> Export CSV</button>
           <Link className="button button--primary" to="/purchases/new"><Plus size={17} /> New purchase</Link>
         </div>
       </div>
@@ -53,7 +66,7 @@ export function PurchasesPage() {
             <tbody>
               {filteredPurchases.map((purchase) => (
                 <tr key={purchase.id}>
-                  <td><strong>{purchase.number}</strong><small className="cell-subtext">{purchase.date}</small></td>
+                  <td><Link className="table-primary-link" to={`/purchases/${purchase.number}`}>{purchase.number}</Link><small className="cell-subtext">{purchase.date}</small></td>
                   <td><strong>{purchase.supplier}</strong></td>
                   <td>{purchase.rolls} rolls<small className="cell-subtext">{purchase.meters} meters</small></td>
                   <td><strong>{money(purchase.total)}</strong></td><td>{money(purchase.paid)}</td><td>{money(purchase.total - purchase.paid)}</td>
