@@ -10,11 +10,12 @@ import { CustomerDetailPage } from '../modules/customers/pages/CustomerDetailPag
 import { CustomersPage } from '../modules/customers/pages/CustomersPage'
 import { NewSalePage } from '../modules/sales/pages/NewSalePage'
 import { SalesPage } from '../modules/sales/pages/SalesPage'
+import { NewReturnPage } from '../modules/returns/pages/NewReturnPage'
+import { ReturnsPage } from '../modules/returns/pages/ReturnsPage'
 import { ModulePlaceholder } from '../shared/components/ModulePlaceholder'
 import { AppShell } from '../shared/layout/AppShell'
 
 const modules = [
-  ['returns', 'Returns', 'Online invoice search, return approval aur exchange adjustment.'],
   ['expenses', 'Cash & Expenses', 'Cash movement, supplier payments aur daily expenses.'],
   ['reports', 'Reports', 'Stock, sales, ledgers aur profit reports.'],
 ] as const
@@ -34,6 +35,8 @@ export function App() {
         <Route path="customers/:customerId" element={<CustomerDetailPage />} />
         <Route path="sales" element={<SalesPage />} />
         <Route path="sales/new" element={<NewSalePage />} />
+        <Route path="returns" element={<ReturnsPage />} />
+        <Route path="returns/new" element={<NewReturnPage />} />
         {modules.map(([path, title, description]) => (
           <Route
             key={path}
