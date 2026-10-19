@@ -1,35 +1,54 @@
-export type PurchaseStatus = 'Paid' | 'Partial' | 'Unpaid'
+export type PurchaseStatus = 'Paid' | 'Partial' | 'Unpaid' | 'Cancelled'
+
+export type PurchaseRoll = {
+  id: number
+  rollNumber: string
+  barcode: string
+}
+
+export type PurchaseItem = {
+  id: number
+  fabricId: number
+  fabric: string
+  article: string
+  color: string
+  thaanQuantity: number
+  metersPerThaan: number
+  pricePerThaan: number
+  totalMeters: number
+  totalAmount: number
+  rolls: PurchaseRoll[]
+}
 
 export type Purchase = {
   id: number
   number: string
   date: string
+  supplierId: number
   supplier: string
-  rolls: number
+  supplierPhone: string
+  supplierInvoiceNumber: string
+  thaans: number
   meters: number
   total: number
   paid: number
+  balance: number
   status: PurchaseStatus
+  items: PurchaseItem[]
 }
 
-export type PurchaseItem = {
-  id: number
-  fabric: string
+export type PurchaseItemInput = {
+  fabricId: number
   color: string
-  rollNumber: string
-  quantity: number
-  unit: 'Meter' | 'Yard'
-  rate: number
+  thaanQuantity: number
+  metersPerThaan: number
+  pricePerThaan: number
 }
 
-export type PurchaseDetailItem = PurchaseItem & {
-  barcode: string
-  article: string
-}
-
-export type PurchaseDetail = Purchase & {
+export type PurchaseInput = {
   supplierId: number
-  supplierPhone: string
-  items: PurchaseDetailItem[]
+  supplierInvoiceNumber: string
+  purchaseDate: string
+  paidAmount: number
+  items: PurchaseItemInput[]
 }
-

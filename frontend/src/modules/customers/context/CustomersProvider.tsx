@@ -11,8 +11,16 @@ export function CustomersProvider({ children }: { children: ReactNode }) {
   }
 
   const updateCustomer = (customer: Customer) => {
-    setCustomers((current) => current.map((item) => item.id === customer.id ? customer : item))
+    setCustomers((current) =>
+      current.map((item) => (item.id === customer.id ? customer : item)),
+    )
   }
 
-  return <CustomersContext.Provider value={{ customers, addCustomer, updateCustomer }}>{children}</CustomersContext.Provider>
+  return (
+    <CustomersContext.Provider
+      value={{ customers, addCustomer, updateCustomer }}
+    >
+      {children}
+    </CustomersContext.Provider>
+  )
 }

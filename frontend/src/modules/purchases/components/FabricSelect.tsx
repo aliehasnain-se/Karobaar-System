@@ -1,14 +1,16 @@
+import { Check, ChevronDown } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { Check, ChevronDown } from 'lucide-react'
-import { initialFabrics } from '../../inventory/data/mockInventory'
+import { useInventory } from '../../inventory/context/useInventory'
 
 type FabricSelectProps = {
-  value: string
-  onChange: (fabric: string) => void
+  value: number
+  onChange: (fabricId: number) => void
 }
 
 export function FabricSelect({ value, onChange }: FabricSelectProps) {
+  const { fabrics } = useInventory()
+  const selected = fabrics.find((fabric) => fabric.id === value)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
   const [open, setOpen] = useState(false)
@@ -17,8 +19,14 @@ export function FabricSelect({ value, onChange }: FabricSelectProps) {
 
   const matchingFabrics = useMemo(() => {
     const term = search.trim().toLowerCase()
-    return initialFabrics.filter((fabric) => !term || [fabric.name, fabric.article, fabric.category, fabric.brand].some((field) => field.toLowerCase().includes(term)))
-  }, [search])
+    return fabrics.filter(
+      (fabric) =>
+        !term ||
+        [fabric.name, fabric.article, fabric.category, fabric.brand].some((field) =>
+          field.toLowerCase().includes(term),
+        ),
+    )
+  }, [fabrics, search])
 
   useEffect(() => {
     if (!open) return
@@ -26,11 +34,17 @@ export function FabricSelect({ value, onChange }: FabricSelectProps) {
       const rect = buttonRef.current?.getBoundingClientRect()
       if (!rect) return
       const width = Math.min(340, window.innerWidth - 24)
-      setPosition({ top: rect.bottom + 5, left: Math.max(12, Math.min(rect.left, window.innerWidth - width - 12)), width })
+      setPosition({
+        top: rect.bottom + 5,
+        left: Math.max(12, Math.min(rect.left, window.innerWidth - width - 12)),
+        width,
+      })
     }
     const closeOnOutsideClick = (event: PointerEvent) => {
       const target = event.target as Node
-      if (!buttonRef.current?.contains(target) && !menuRef.current?.contains(target)) setOpen(false)
+      if (!buttonRef.current?.contains(target) && !menuRef.current?.contains(target)) {
+        setOpen(false)
+      }
     }
     updatePosition()
     window.addEventListener('resize', updatePosition)
@@ -45,12 +59,45 @@ export function FabricSelect({ value, onChange }: FabricSelectProps) {
 
   return (
     <>
-      <button ref={buttonRef} type="button" className="fabric-picker-button" onClick={() => { setOpen((current) => !current); setSearch('') }} aria-haspopup="listbox" aria-expanded={open}><span>{value}</span><ChevronDown size={15} /></button>
+      <button
+        ref={buttonRef}
+        type="button"
+        className="fabric-picker-button"
+        onClick={() => {
+          setOpen((current) => !current)
+          setSearch('')
+        }}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+      >
+        <span>{selected ? `${selected.name} — ${selected.article}` : 'Select fabric'}</span>
+        <ChevronDown size={15} />
+      </button>
       {open && createPortal(
         <div ref={menuRef} className="customer-select-menu fabric-select-menu" style={position}>
-          <input className="customer-menu-search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search by fabric or article" aria-label="Search fabrics" autoFocus />
+          <input
+            className="customer-menu-search"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Search by fabric or article"
+            aria-label="Search fabrics"
+            autoFocus
+          />
           <div className="customer-menu-options" role="listbox">
-            {matchingFabrics.map((fabric) => <button type="button" key={fabric.id} onClick={() => { onChange(fabric.name); setOpen(false); setSearch('') }}><span><strong>{fabric.name}</strong><small>{fabric.article} · {fabric.category}</small></span>{value === fabric.name && <Check size={15} />}</button>)}
+            {matchingFabrics.map((fabric) => (
+              <button
+                type="button"
+                key={fabric.id}
+                onClick={() => {
+                  onChange(fabric.id)
+                  setOpen(false)
+                  setSearch('')
+                }}
+              >
+                <span><strong>{fabric.name}</strong><small>{fabric.article} · {fabric.category}</small></span>
+                {value === fabric.id && <Check size={15} />}
+              </button>
+            ))}
             {!matchingFabrics.length && <p>No fabric found.</p>}
           </div>
         </div>,

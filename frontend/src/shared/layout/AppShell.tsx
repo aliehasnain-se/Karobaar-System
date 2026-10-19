@@ -1,9 +1,9 @@
 import {
   Boxes,
-  ChevronDown,
   ClipboardList,
   LayoutDashboard,
   Menu,
+  LogOut,
   PackageSearch,
   RotateCcw,
   ScanBarcode,
@@ -14,7 +14,8 @@ import {
   X,
 } from 'lucide-react'
 import { useState } from 'react'
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../modules/auth/context/useAuth'
 import { GlobalSearch } from '../../modules/search/components/GlobalSearch'
 import { useShopSettings } from '../../modules/settings/hooks/useShopSettings'
 
@@ -34,6 +35,13 @@ const navItems = [
 export function AppShell() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const shopSettings = useShopSettings()
+  const { user, logout } = useAuth()
+  const navigate = useNavigate()
+
+  const handleLogout = async () => {
+    await logout()
+    navigate('/login', { replace: true })
+  }
 
   return (
     <div className="app-shell">
@@ -47,7 +55,9 @@ export function AppShell() {
 
       <aside className={`sidebar ${sidebarOpen ? 'sidebar--open' : ''}`}>
         <div className="brand-row">
-          <div className="brand-mark" aria-hidden="true">K</div>
+          <div className="brand-mark" aria-hidden="true">
+            K
+          </div>
           <div>
             <strong>{shopSettings.shopName}</strong>
             <small>Business Management</small>
@@ -68,7 +78,9 @@ export function AppShell() {
               to={to}
               end={end}
               onClick={() => setSidebarOpen(false)}
-              className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
+              className={({ isActive }) =>
+                isActive ? 'nav-link active' : 'nav-link'
+              }
             >
               <Icon size={19} strokeWidth={1.8} />
               <span>{label}</span>
@@ -79,10 +91,18 @@ export function AppShell() {
         <div className="sidebar-profile">
           <div className="avatar">AH</div>
           <div>
-            <strong>{shopSettings.ownerName}</strong>
+            <strong>{shopSettings.ownerName || user?.username}</strong>
             <small>Owner</small>
           </div>
-          <ChevronDown size={16} />
+          <button
+            type="button"
+            className="profile-logout"
+            onClick={() => void handleLogout()}
+            aria-label="Sign out"
+            title="Sign out"
+          >
+            <LogOut size={16} />
+          </button>
         </div>
       </aside>
 
@@ -105,4 +125,3 @@ export function AppShell() {
     </div>
   )
 }
-

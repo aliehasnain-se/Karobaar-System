@@ -36,6 +36,9 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "apps.accounts",
     "apps.common",
+    "apps.inventory",
+    "apps.suppliers",
+    "apps.purchases",
 ]
 
 MIDDLEWARE = [
@@ -120,6 +123,10 @@ SIMPLE_JWT = {
     "BLACKLIST_AFTER_ROTATION": True,
     "UPDATE_LAST_LOGIN": True,
 }
+
+AUTH_COOKIE_NAME = "karobaar_refresh"
+AUTH_COOKIE_SECURE = not DEBUG
+AUTH_COOKIE_SAMESITE = "Strict"
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "Karobaar System API",

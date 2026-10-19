@@ -19,4 +19,3 @@ export type CustomerLedgerEntry = {
   balance: number
   type: 'Sale' | 'Payment' | 'Return'
 }
-

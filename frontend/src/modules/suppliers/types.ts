@@ -6,7 +6,21 @@ export type Supplier = {
   city: string
   purchases: number
   paid: number
+  balance: number
   lastPurchase: string
+}
+
+export type SupplierInput = {
+  name: string
+  contactPerson: string
+  phone: string
+  city: string
+}
+
+export type SupplierPaymentInput = {
+  amount: number
+  paymentDate: string
+  note: string
 }
 
 export type SupplierLedgerEntry = {
@@ -19,4 +33,3 @@ export type SupplierLedgerEntry = {
   balance: number
   type: 'Purchase' | 'Payment' | 'Return'
 }
-

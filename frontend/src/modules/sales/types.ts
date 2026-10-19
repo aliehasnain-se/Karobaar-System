@@ -20,6 +20,10 @@ export type SaleItem = {
   article: string
   color: string
   meters: number
+  saleType?: 'ROLL' | 'METER'
+  availableMeters?: number
+  soldMeters?: number
+  pricePerMeter?: number
   price: number
 }
 
@@ -28,4 +32,3 @@ export type SaleDetail = Sale & {
   discount: number
   items: SaleItem[]
 }
-

@@ -7,4 +7,6 @@ export type CustomersContextValue = {
   updateCustomer: (customer: Customer) => void
 }
 
-export const CustomersContext = createContext<CustomersContextValue | null>(null)
+export const CustomersContext = createContext<CustomersContextValue | null>(
+  null,
+)

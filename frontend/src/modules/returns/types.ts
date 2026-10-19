@@ -25,4 +25,3 @@ export type ReturnableInvoice = {
   total: number
   items: SoldRoll[]
 }
-

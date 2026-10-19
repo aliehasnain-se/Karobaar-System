@@ -1,6 +1,12 @@
+from django.core.exceptions import ImproperlyConfigured
+
 from .base import *  # noqa: F403
 
 DEBUG = False
+AUTH_COOKIE_SECURE = True
+
+if len(SECRET_KEY) < 50 or SECRET_KEY.startswith("django-insecure-"):  # noqa: F405
+    raise ImproperlyConfigured("DJANGO_SECRET_KEY must be a strong, random production secret.")
 
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
